@@ -42,10 +42,31 @@ export default function ServiceScene({
   index,
   total,
   scrollProgress,
+  motionDirection = "vertical",
   className = "",
 }) {
-  const keyframes = getSceneKeyframes(index, total);
-  const y = useTransform(scrollProgress, keyframes.input, keyframes.y);
+  const entersFromRight = motionDirection === "right";
+  const keyframes =
+    entersFromRight && index === 0
+      ? {
+          input: [0, 0.05, 0.2, 0.25],
+          y: [120, 0, 0, -88],
+          opacity: [0, 1, 1, 0],
+          scale: [0.965, 1, 1, 0.98],
+        }
+      : getSceneKeyframes(index, total);
+  const xValues = keyframes.y.map((value) => {
+    if (!entersFromRight || value === 0) return 0;
+    return value > 0 ? 112 : -48;
+  });
+  const yValues = entersFromRight
+    ? keyframes.y.map((value) => {
+        if (value === 0) return 0;
+        return value > 0 ? 18 : -18;
+      })
+    : keyframes.y;
+  const x = useTransform(scrollProgress, keyframes.input, xValues);
+  const y = useTransform(scrollProgress, keyframes.input, yValues);
   const opacity = useTransform(
     scrollProgress,
     keyframes.input,
@@ -58,14 +79,24 @@ export default function ServiceScene({
 
   const initialScene =
     index === 0
-      ? { opacity: 1, y: 0, scale: 1 }
-      : { opacity: 0, y: 120, scale: 0.965 };
+      ? {
+          opacity: entersFromRight ? 0 : 1,
+          x: entersFromRight ? 112 : 0,
+          y: entersFromRight ? 18 : 0,
+          scale: entersFromRight ? 0.965 : 1,
+        }
+      : {
+          opacity: 0,
+          x: entersFromRight ? 112 : 0,
+          y: entersFromRight ? 18 : 120,
+          scale: 0.965,
+        };
 
   return (
     <motion.div
       className={`absolute inset-0 ${className}`}
       initial={initialScene}
-      style={{ y, opacity, scale, visibility, zIndex: index + 1 }}
+      style={{ x, y, opacity, scale, visibility, zIndex: index + 1 }}
     >
       {children}
     </motion.div>

@@ -75,9 +75,9 @@ export default function ServicesSection() {
     offset: ["start start", "end end"],
   });
   const smoothScrollProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 24,
-    mass: 0.28,
+    stiffness: 110,
+    damping: 32,
+    mass: 0.3,
     restDelta: 0.001,
   });
 
@@ -85,12 +85,15 @@ export default function ServicesSection() {
     <section
       id="services"
       aria-labelledby="services-title"
-      className="border-border bg-background relative border-b"
+      className="border-border bg-background relative border-b pb-20 sm:pb-24 lg:pb-28"
     >
       <SectionIntroduction />
 
       {!prefersReducedMotion && (
-        <div ref={sectionTrackRef} className="relative h-[420svh] lg:h-[420vh]">
+        <div
+          ref={sectionTrackRef}
+          className="relative h-[380svh] pt-[12svh] pb-[12svh] lg:h-[380vh] lg:pt-[14vh] lg:pb-[14vh]"
+        >
           <div className="sticky top-0 h-svh overflow-hidden">
             <div className="bg-primary/5 absolute top-1/3 -right-32 size-96 rounded-full blur-3xl" />
             <div className="mx-auto flex h-full max-w-7xl flex-col px-5 pt-20 pb-5 sm:px-8 sm:pt-28 sm:pb-8 lg:grid lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-10 lg:pt-24 lg:pb-10 xl:gap-16">
@@ -121,6 +124,7 @@ export default function ServicesSection() {
                     index={index}
                     total={services.length}
                     scrollProgress={smoothScrollProgress}
+                    motionDirection="right"
                   >
                     <ServiceVisual service={service} />
                   </ServiceScene>
@@ -132,7 +136,7 @@ export default function ServicesSection() {
       )}
 
       <div
-        className={`mx-auto max-w-7xl px-5 pb-20 sm:px-8 sm:pb-24 ${prefersReducedMotion ? "block" : "hidden"}`}
+        className={`mx-auto max-w-7xl px-5 sm:px-8 ${prefersReducedMotion ? "block" : "hidden"}`}
       >
         <div className="grid gap-6 lg:grid-cols-2">
           {services.map((service) => (
