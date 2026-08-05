@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default function LogoLink({ onClick, compact = false }) {
+export default function LogoLink({
+  onClick,
+  compact = false,
+  priority = true,
+}) {
   return (
     <a
       href="#home"
@@ -18,7 +22,7 @@ export default function LogoLink({ onClick, compact = false }) {
           alt="AKS"
           width={50}
           height={50}
-          priority
+          priority={priority}
           className="size-full object-cover"
         />
       </span>

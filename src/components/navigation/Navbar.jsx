@@ -7,6 +7,7 @@ import ContactUsLink from "@/components/ui/ContactUsLink";
 import LogoLink from "@/components/ui/LogoLink";
 import { navigationLinks } from "../../../data/navigation";
 import NavigationLinks from "./NavigationLinks";
+import NavbarScrollProgress from "./NavbarScrollProgress";
 
 const smoothEase = [0.22, 1, 0.36, 1];
 const drawerId = "mobile-navigation-drawer";
@@ -19,6 +20,7 @@ const entranceVariants = {
 export default function Navbar() {
   // to know the scoll of the user for desgin of the nav bar
   const [isScrolled, setIsScrolled] = useState(false);
+  // close and open the sidebar
   const [isOpen, setIsOpen] = useState(false);
   // if the user does not want an animation
   const prefersReducedMotion = useReducedMotion();
@@ -107,7 +109,7 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
       <div
-        className={`mx-auto max-w-7xl rounded-2xl border transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
+        className={`relative mx-auto max-w-7xl rounded-2xl border transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
           isScrolled
             ? "border-border bg-background-secondary/90 shadow-background/40 shadow-lg backdrop-blur-xl"
             : "bg-background/20 border-transparent"
@@ -161,6 +163,8 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        <NavbarScrollProgress />
       </div>
 
       <AnimatePresence>

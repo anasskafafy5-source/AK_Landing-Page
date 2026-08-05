@@ -1,5 +1,7 @@
 import AboutSection from "@/components/about-section";
+import ContactSection from "@/components/contact-section";
 import FAQSection from "@/components/faq-section";
+import FooterSection from "@/components/footer-section";
 import HeroContainer from "@/components/HeroSection/HeroContainer";
 import PricingSection from "@/components/pricing-section";
 import ProductShowcaseSection from "@/components/product-showcase";
@@ -18,6 +20,8 @@ export default function Home() {
       <TestimonialsSection />
       <PricingSection />
       <FAQSection />
+      <ContactSection />
+      <FooterSection />
     </>
   );
 }
